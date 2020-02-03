@@ -2,7 +2,7 @@ Name of Quantlet: 'Augmento_lasso'
 
 Published in: 'DEDA_Class_2019WS'
 
-Description: 'Two)'
+Description: 'Lasso regression based on Augmento sentiment'
 
 Keywords: 'sentiment, cryptocurrency, bitcoin'
 
