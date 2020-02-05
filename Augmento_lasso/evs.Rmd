@@ -6,29 +6,20 @@ output: html_document
 ---
 
 ```{r load packages, include=FALSE}
-library(MASS)
 library(leaps)
 library(dplyr)
-library(sm)
-library(nnet)
-library(hexbin)
-library(scatterplot3d)
 ```
 
-Load data
 ```{r read, message=FALSE}
-dat <- read.csv("importeddata.csv", stringsAsFactors = TRUE)
-colnames(dat)[1] = "Date"
-attach(dat)
-Momentum = dat[1:1051, 3]
-dat = cbind(dat[2:1052,], Momentum)
+dat = read.csv("../augmento_BTC_24h.csv", stringsAsFactors = TRUE)
+dat = dat %>% mutate(Momentum = lag(BTC_Price, default=0))
 ```
 
 ```{r leaps, message=FALSE}
-leaps <- regsubsets(x = dat[,4:97], y = dat[,3], nbest = 1, nvmax = 5, really.big = TRUE)
+leaps <- regsubsets(x = dat[,4:97], y = dat$BTC_Price, nbest = 1, nvmax = 5, really.big = TRUE)
 ```
 
 ```{r figleap, fig.height=9, fig.width=8, fig.align="center"}
 #plot(leaps, scale = "r2")
-plot(leaps, scale = "bic", col = black)
+plot(leaps, scale = "bic", col = "black")
 ```
